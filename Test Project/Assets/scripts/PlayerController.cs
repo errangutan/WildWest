@@ -4,13 +4,18 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
+	public delegate void lookDirValidAction();
+	public static event lookDirValidAction onLookDirValid;
+
     public float speed = 5;
     public float lookSensitivity = 1;
     public GameObject camera;
+	public GameObject weapon;
 
     [HideInInspector]
     public Quaternion lookDirection;
 
+	WeaponController wc;
     Rigidbody rb;
     Transform tf;
     Transform cameraTf;
@@ -18,7 +23,7 @@ public class PlayerController : MonoBehaviour {
     // Use this for initialization
     private void Awake()
     {
-
+		wc = GetComponent<WeaponController> ();
         rb = GetComponent<Rigidbody>();
         tf = GetComponent<Transform>();
 
@@ -37,10 +42,11 @@ public class PlayerController : MonoBehaviour {
 
         Vector3 movement = tf.rotation * new Vector3(h_movement, 0f, v_movement).normalized * Time.fixedDeltaTime * speed;
 
-        Debug.Log(cameraTf.rotation.eulerAngles.x - rotationInputY * Time.fixedDeltaTime * lookSensitivity); 
-
         cameraTf.rotation = Quaternion.Euler(Mathf.Clamp((cameraTf.rotation.eulerAngles.x+90)%360 - rotationInputY * Time.fixedDeltaTime * lookSensitivity, 0, 180)-90, cameraTf.rotation.eulerAngles.y , cameraTf.rotation.eulerAngles.z);
-        rb.MovePosition(tf.position + movement);
+		if (onLookDirValid != null) {
+			onLookDirValid ();
+		}
+		rb.MovePosition(tf.position + movement);
     }
 
 }
