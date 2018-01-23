@@ -316,6 +316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 436a195669882aa4fa37da3cb927bcf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  aimPosOffset: {x: 0.27, y: -0.339, z: 0.595}
   minPickupAngle: 70
   weaponEnabledDefault: 0
 --- !u!1 &726513544

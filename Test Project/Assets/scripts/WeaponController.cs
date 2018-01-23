@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class WeaponController : MonoBehaviour {
 
+	public Vector3 aimPosOffset;
 	public float minPickupAngle;
 	public bool weaponEnabledDefault = false;
 
@@ -31,6 +32,7 @@ public class WeaponController : MonoBehaviour {
 
 	void updateWeaponTf () {
 		tf.rotation = cameraTf.rotation * Quaternion.LookRotation(new Vector3(0,90,0));
+		tf.position = cameraTf.position + cameraTf.rotation * aimPosOffset;	
 		//tf.position = cameraTf.position;
 	}
 
