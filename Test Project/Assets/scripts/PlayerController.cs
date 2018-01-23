@@ -20,6 +20,9 @@ public class PlayerController : MonoBehaviour {
     Transform tf;
     Transform cameraTf;
 
+    [HideInInspector]
+    public Vector3 movement;
+
     // Use this for initialization
     private void Awake()
     {
@@ -40,7 +43,7 @@ public class PlayerController : MonoBehaviour {
 
         rb.MoveRotation(Quaternion.Euler(0f, rb.rotation.eulerAngles.y +  rotationInputX * Time.fixedDeltaTime * lookSensitivity, 0f));
 
-        Vector3 movement = tf.rotation * new Vector3(h_movement, 0f, v_movement).normalized * Time.fixedDeltaTime * speed;
+        movement = tf.rotation * new Vector3(h_movement, 0f, v_movement).normalized * Time.fixedDeltaTime * speed;
 
         cameraTf.rotation = Quaternion.Euler(Mathf.Clamp((cameraTf.rotation.eulerAngles.x+90)%360 - rotationInputY * Time.fixedDeltaTime * lookSensitivity, 0, 180)-90, cameraTf.rotation.eulerAngles.y , cameraTf.rotation.eulerAngles.z);
 		if (onLookDirValid != null) {

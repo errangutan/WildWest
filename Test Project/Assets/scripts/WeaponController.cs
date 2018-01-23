@@ -2,38 +2,47 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponController : MonoBehaviour {
+public class WeaponController : MonoBehaviour
+{
 
-	public Vector3 aimPosOffset;
-	public float minPickupAngle;
-	public bool weaponEnabledDefault = false;
+    public Vector3 aimPosOffset;
+    public float minPickupAngle;
+    public bool weaponEnabledDefault = false;
 
-	bool weaponEnabled;
-	Transform tf;
-	Transform cameraTf;
+    public float weaponMovementSpeed;
 
-	void Awake () {
-		tf = GetComponent<Transform> ();
-		cameraTf = GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<Transform>();
-	}
+    bool weaponEnabled;
+    Transform tf;
+    Transform cameraTf;
 
-	// Use this for initialization
-	void Start () {
-		weaponEnabled = weaponEnabledDefault;
-	}
+    void Awake()
+    {
+        tf = GetComponent<Transform>();
+        cameraTf = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>();
+    }
 
-	// Update is called once per frame
-	void Update () {
-		if (cameraTf.rotation.eulerAngles.x > minPickupAngle && true) {//And countdown is over
-			PlayerController.onLookDirValid += updateWeaponTf;
-			weaponEnabled = true;
-		}
-	}
+    // Use this for initialization
+    void Start()
+    {
+        weaponEnabled = weaponEnabledDefault;
+    }
 
-	void updateWeaponTf () {
-		tf.rotation = cameraTf.rotation * Quaternion.LookRotation(new Vector3(0,90,0));
-		tf.position = cameraTf.position + cameraTf.rotation * aimPosOffset;	
-		//tf.position = cameraTf.position;
-	}
+    // Update is called once per frame
+    void Update()
+    {
+        if (cameraTf.rotation.eulerAngles.x > minPickupAngle && cameraTf.rotation.eulerAngles.x <= 90 && true)
+        {//And countdown is over
+            PlayerController.onLookDirValid += updateWeaponTf;
+			tf.parent = null;
+            weaponEnabled = true;
+        }
+    }
+
+    void updateWeaponTf()
+    {
+        tf.rotation = Quaternion.Slerp(tf.rotation, cameraTf.rotation * Quaternion.LookRotation(new Vector3(0, 90, 0)), weaponMovementSpeed);
+        tf.position = cameraTf.position + tf.rotation * Quaternion.LookRotation(new Vector3(0, -90, 0)) * aimPosOffset;
+        //tf.position = cameraTf.position;
+    }
 
 }
