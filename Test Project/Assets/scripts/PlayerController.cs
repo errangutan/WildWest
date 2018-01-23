@@ -10,12 +10,7 @@ public class PlayerController : MonoBehaviour {
     public float speed = 5;
     public float lookSensitivity = 1;
     public GameObject camera;
-	public GameObject weapon;
 
-    [HideInInspector]
-    public Quaternion lookDirection;
-
-	WeaponController wc;
     Rigidbody rb;
     Transform tf;
     Transform cameraTf;
@@ -26,7 +21,6 @@ public class PlayerController : MonoBehaviour {
     // Use this for initialization
     private void Awake()
     {
-		wc = GetComponent<WeaponController> ();
         rb = GetComponent<Rigidbody>();
         tf = GetComponent<Transform>();
 
