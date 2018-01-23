@@ -128,7 +128,7 @@ GameObject:
   - component: {fileID: 140028795}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -147,8 +147,6 @@ MonoBehaviour:
   speed: 5
   lookSensitivity: 100
   camera: {fileID: 726513544}
-  weapon: {fileID: 0}
-  lookDirection: {x: 0, y: 0, z: 0, w: 0}
   movement: {x: 0, y: 0, z: 0}
 --- !u!23 &140028791
 MeshRenderer:
@@ -156,7 +154,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 140028789}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -318,10 +316,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 436a195669882aa4fa37da3cb927bcf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aimPosOffset: {x: 0.27, y: -0.339, z: 0.595}
+  initialWeaponVerticalAngle: 37.13
+  aimPosOffset: {x: 0.27, y: -0.22, z: 0.4}
   minPickupAngle: 70
   weaponEnabledDefault: 0
-  weaponMovementSpeed: 0.015
+  weaponMovementSpeed: 20
 --- !u!54 &564010670
 Rigidbody:
   m_ObjectHideFlags: 0
